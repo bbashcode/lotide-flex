@@ -29,7 +29,7 @@ const assertArraysEqual = function(actual, expected) {
  * @param  {array} source, input param
  * @return {array} returns a flattened array of the provided nested source
  * @note Our function however, will for now be much simpler and only handle one level of nesting.
- * @TODO - refactor the method to solve this problem recursively
+ * @TODO - refactor the method to solve this problem recursively, use isArray to check the type of nested array when looping, do not use typeof becuase it returns type of array as object.
  */
 const flatten = function flatNestedArrays(source){
   return source.flat();
