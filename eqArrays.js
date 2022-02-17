@@ -20,7 +20,6 @@ const assertEqual = function(actual, expected) {
  * @param  {array} array2 The second param
  * @return {boolean} returns true or false depending on whether both arrays are equal or not
  */
-
  const eqArrays = (array1, array2) =>
  array1.length === array2.length &&
  array1.every((element, index) => element === array2[index]);
