@@ -12,6 +12,16 @@ const assertEqual = function(actual, expected) {
   }
 };
 
+/**
+ * eqArrays method is used to compare two arrays for a perfect match
+ * @param  {array} array1 The first param
+ * @param  {array} array2 The second param
+ * @return {boolean} returns true or false depending on whether both arrays are equal or not
+ */
+ const eqArrays = (array1, array2) =>
+ array1.length === array2.length &&
+ array1.every((element, index) => element === array2[index]);
+
 // Returns true if both objects have identical keys with identical values.
 // Otherwise you get back a big fat false!
 /**
@@ -26,21 +36,34 @@ const eqObjects = function(object1, object2) {
   let result = false;
 
   if (keysOfObject1.length === keysOfObject2.length) {
-    for (let key1 in object1) {
-      for (let key2 in object2) {
-        if (object1[key1] === object2[key2]) {
-          result = true;
+    for (let key in object1) {
+        if (Array.isArray(object1[key]) && Array.isArray(object2[key])) {
+          if(eqArrays(object1[key], object2[key])){
+            result = true;
+          }
+        } else {
+          if (object1[key] === object2[key]) {
+            result = true;
+          }
         }
-      }
     }
   }
   return result;
 };
 
 // TEST CODE
+//Primitives As Values (Tests)
 const ab = { a: "1", b: "2" };
 const ba = { b: "2", a: "1" };
 assertEqual(eqObjects(ab, ba), true); // => true
 
 const abc = { a: "1", b: "2", c: "3" };
 assertEqual(eqObjects(ab, abc), false); // => false
+
+//Arrays As Values (Tests)
+const cd = { c: "1", d: ["2", 3] };
+const dc = { d: ["2", 3], c: "1" };
+console.log(eqObjects(cd, dc)); // => true
+
+const cd2 = { c: "1", d: ["2", 3, 4] };
+console.log(eqObjects(cd, cd2)); // => false
