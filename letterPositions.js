@@ -25,18 +25,22 @@ const assertArraysEqual = function(actual, expected) {
 
 
 
-const letterPositions = function(sentence) {
+/**
+ * letterPosition is a method that returns all the indices (zero-based positions) in the string where each character is found 
+ * @param  {string} sentence Provided string parameter
+ * @return {object} the return object contains all the indices (zero-based positions) in the string where each character is found 
+ */ 
+const letterPositions = function findAllIndicesOfAllCharacters(sentence) {
   const results = {};
 
   for(let i = 0; i < sentence.length; i++){
-    if(results[i]){
-      results[sentence[i]].push(sentence[i]);
+    if(results[sentence[i]]){
+      results[sentence[i]].push(i);
     } else {
-
       results[sentence[i]] = [i];
     }
   }
-  console.log('result', results);
+  // console.log('result', results);
 
   return results;
 };
