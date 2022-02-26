@@ -22,8 +22,6 @@ const assertEqual = function(actual, expected) {
  array1.length === array2.length &&
  array1.every((element, index) => element === array2[index]);
 
-// Returns true if both objects have identical keys with identical values.
-// Otherwise you get back a big fat false!
 /**
  * eqObjects method returns true if both objects have identical keys with identical values, it returns false otherwise
  * @param  {object} object1 The first param object
@@ -40,7 +38,7 @@ const eqObjects = function(object1, object2) {
         if (Array.isArray(object1[key]) && Array.isArray(object2[key])) {
           result = result && eqArrays(object1[key], object2[key]);
         } else if(typeof(object1[key]) === "object" || typeof(object2[key] === "object")) {
-          result = result && eqObjects(object1[key], object2[key]);
+          //result = result && eqObjects(object1[key], object2[key]);
         }
         else {
           if (object1[key] === object2[key]) {
