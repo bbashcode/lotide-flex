@@ -18,9 +18,9 @@ const assertEqual = function(actual, expected) {
  * @param  {array} array2 The second param
  * @return {boolean} returns true or false depending on whether both arrays are equal or not
  */
- const eqArrays = (array1, array2) =>
- array1.length === array2.length &&
- array1.every((element, index) => element === array2[index]);
+const eqArrays = (array1, array2) =>
+  array1.length === array2.length &&
+  array1.every((element, index) => element === array2[index]);
 
 /**
  * eqObjects method returns true if both objects have identical keys with identical values, it returns false otherwise
@@ -33,21 +33,22 @@ const eqObjects = function(object1, object2) {
   const keysOfObject2 = Object.keys(object2);
   let result = true;
 
-  if (keysOfObject1.length === keysOfObject2.length) {
-    for (let key in object1) {
-        if (Array.isArray(object1[key]) && Array.isArray(object2[key])) {
-          result = result && eqArrays(object1[key], object2[key]);
-        } else if(typeof(object1[key]) === "object" || typeof(object2[key] === "object")) {
-          //result = result && eqObjects(object1[key], object2[key]);
-        }
-        else {
-          if (object1[key] === object2[key]) {
-            result = true;
-          }
-        }
+  if (keysOfObject1.length !== keysOfObject2.length) {
+    result = false;
+  }
+
+  for (let key of keysOfObject1) {
+    if (Array.isArray(object1[key])) {
+      result = (eqArrays(object1[key], object2[key]));
+    } else if (typeof object1[key] === "object" && !(Array.isArray(object1[key]))) {
+      result = eqObjects(object1[key], object2[key]);
+    } else if (object1[key] !== object2[key]) {
+      result = false;
     }
   }
+
   return result;
+
 };
 
 // TEST CODE
@@ -62,7 +63,13 @@ assertEqual(eqObjects(ab, abc), false); // => false
 //Arrays As Values (Tests)
 const cd = { c: "1", d: ["2", 3] };
 const dc = { d: ["2", 3], c: "1" };
-console.log(eqObjects(cd, dc)); // => true
+console.log('should be true', eqObjects(cd, dc)); // => true
 
 const cd2 = { c: "1", d: ["2", 3, 4] };
-console.log(eqObjects(cd, cd2)); // => false
+console.log('should be false', eqObjects(cd, cd2)); // => false
+
+
+//RECURSIVE TEST CASES
+console.log('should be true', eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }));
+console.log('should be false', eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }));
+console.log('should be false', eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }));
