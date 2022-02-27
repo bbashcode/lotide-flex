@@ -1,12 +1,5 @@
-/**
- * eqArrays method is used to compare two arrays for a perfect match
- * @param  {array} array1 The first param
- * @param  {array} array2 The second param
- * @return {boolean} returns true or false depending on whether both arrays are equal or not
- */
- const eqArrays = (array1, array2) =>
- array1.length === array2.length &&
- array1.every((element, index) => element === array2[index]);
+//importing required modules
+const eqArrays = require("./eqArrays");
 
 
  /**
@@ -23,5 +16,5 @@ const assertArraysEqual = function(actual, expected) {
   }
 };
 
-// TEST CODE
-assertArraysEqual(["1", "2", "3"], ["1", "2", "3"]); // => should PASS (true)
+//exporting module
+module.exports = assertArraysEqual;
