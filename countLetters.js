@@ -1,5 +1,3 @@
-const assertEqual = require("./assertEqual");
-
 /**
  * countLetters is a method used to get the letter count in a given string
  * @param  {string} sentence The given param, is a string
