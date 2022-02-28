@@ -1,7 +1,3 @@
-//importing required modules
-const assertEqual = require("./assertEqual");
-
-
 /**
  * eqArrays method is used to compare two arrays for a perfect match
  * @param  {array} array1 The first param
