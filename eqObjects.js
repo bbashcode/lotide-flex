@@ -1,26 +1,4 @@
-/**
- * assertEqual method is used to compare actual vs expected when testing
- * @param  {any except array} actual The first param
- * @param  {any except array} expected The second param
- * @return {void/undefined}      this method does not return anything, rather the side effect is to console log test pass or fail based on comparison
- */
-const assertEqual = function(actual, expected) {
-  if (actual === expected) {
-    console.log(`✅✅✅ Assertion Passed: ${actual} === ${expected}`);
-  } else {
-    console.log(`🛑🛑🛑 Assertion Failed: ${actual} !== ${expected}`);
-  }
-};
-
-/**
- * eqArrays method is used to compare two arrays for a perfect match
- * @param  {array} array1 The first param
- * @param  {array} array2 The second param
- * @return {boolean} returns true or false depending on whether both arrays are equal or not
- */
-const eqArrays = (array1, array2) =>
-  array1.length === array2.length &&
-  array1.every((element, index) => element === array2[index]);
+const eqArrays = require("./eqArrays");
 
 /**
  * eqObjects method returns true if both objects have identical keys with identical values, it returns false otherwise
@@ -51,25 +29,5 @@ const eqObjects = function(object1, object2) {
 
 };
 
-// TEST CODE
-//Primitives As Values (Tests)
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
-assertEqual(eqObjects(ab, ba), true); // => true
-
-const abc = { a: "1", b: "2", c: "3" };
-assertEqual(eqObjects(ab, abc), false); // => false
-
-//Arrays As Values (Tests)
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
-console.log('should be true', eqObjects(cd, dc)); // => true
-
-const cd2 = { c: "1", d: ["2", 3, 4] };
-console.log('should be false', eqObjects(cd, cd2)); // => false
-
-
-//RECURSIVE TEST CASES
-console.log('should be true', eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }));
-console.log('should be false', eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }));
-console.log('should be false', eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }));
+//Exporting module
+module.exports = eqObjects;
